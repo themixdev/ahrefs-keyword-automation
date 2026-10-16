@@ -1,0 +1,41 @@
+HOW TO RUN main_patchright.py
+=============================
+
+One-time setup (in this Keyword_automation folder, in a terminal):
+    pip install patchright pandas openpyxl
+  Needs Python 3.9 or newer (check with: python --version).
+  It uses your normal Google Chrome - no chromedriver needed.
+
+First run - log in once:
+    python main_patchright.py MM-188_keyword_list_run_order.xlsx --out Downloads_MM188 --limit 15
+  A Chrome window opens on the Ahrefs login page. Log in, then press Enter in the terminal.
+  The login is saved in the "patchright_profile" folder, so later runs skip this step.
+  Ahrefs confirmation email: this window counts as a new device, so Ahrefs may email you a
+  confirmation link or code. Copy the LINK and paste it into the address bar of THIS Chrome
+  window (not your normal Chrome), or type the code into this window. Wait until you see the
+  Ahrefs dashboard here, then press Enter. If you press Enter too early it just asks again.
+  --limit 15 = only the first 15 keywords, to check it works before the big run.
+
+Full run:
+    python main_patchright.py MM-188_keyword_list_run_order.xlsx --out Downloads_MM188
+  - Finished keywords are skipped, so you can stop (Ctrl+C) and start again any time.
+  - Keywords with no results are remembered and NOT searched again
+    (add --retry-empty if you want to retry them anyway).
+
+What you get:
+  Downloads_MM188\<keyword>.csv   one Content Explorer export per keyword
+  run_results.csv                 every keyword with its status: ok / no_results / error / rate_limited
+  retry_keywords.xlsx             only the real failures - rerun with:
+                                  python main_patchright.py retry_keywords.xlsx --out Downloads_MM188
+
+Changing the filters:
+  Open main_patchright.py and edit the FILTERS block at the top
+  (DR from/to, traffic from, last N days, minimum words). Default = Armen's spec:
+  DR 30-90, traffic 1000+, last 365 days, 500+ words.
+
+Safety stops:
+  - If 8 keywords fail in a row it stops by itself (so the Ahrefs account is not hammered).
+  - If the Ahrefs login expires it stops; run again and log in.
+
+Keep the "patchright_profile" folder private - it contains your Ahrefs login session.
+main_fixed.py is unchanged and still works as before.

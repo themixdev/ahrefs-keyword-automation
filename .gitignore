@@ -1,0 +1,29 @@
+# Allow-list: ignore everything, then add back only code and docs.
+# This keeps secrets (telegram_settings.txt, ahrefs_login.txt, cookies,
+# browser profiles), downloads and keyword spreadsheets out of git.
+*
+!*/
+!.gitignore
+!README.md
+!requirements.txt
+!HOW_TO_RUN_patchright.txt
+!*.py
+
+# Backups and old copies
+*backup*.py
+*_before_*.py
+main.txt.py
+
+# Never commit these, even if a rule above would allow them
+telegram_settings.txt
+email_settings.txt
+ahrefs_login.txt
+*.pkl
+my_profile/
+patchright_profile/
+test_profile/
+Downloads*/
+Temp*/
+_to_delete/
+__pycache__/
+.idea/
